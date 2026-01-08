@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk 'JDK17'
+        maven 'Maven3'
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/saddu77/selenium-testng-projects.git',
+                    branch: 'main'
+            }
+        }
+
+        stage('Build & Test - ECommerce') {
+            steps {
+                dir('ecommerce-automation') {
+                    sh 'mvn clean test'
+                }
+            }
+        }
+    }
+}
